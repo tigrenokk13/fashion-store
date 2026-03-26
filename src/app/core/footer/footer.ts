@@ -5,8 +5,8 @@ import { AppInfo } from '../../shared/models/appInfo';
   selector: 'fashion-footer',
   standalone: true,
   imports: [],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  templateUrl: './footer.html',
+  styleUrl: './footer.css'
 })
 export class FooterComponent {
   public footerConfig: AppInfo = {

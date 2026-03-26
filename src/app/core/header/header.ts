@@ -5,8 +5,8 @@ import { AppInfo } from '../../shared/models/appInfo';
   selector: 'fashion-header',
   standalone: true,
   imports: [],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  templateUrl: './header.html',
+  styleUrl: './header.css'
 })
 export class HeaderComponent {
   public headerConfig: AppInfo = {
