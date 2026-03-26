@@ -1,0 +1,20 @@
+<div class="card">
+  <img [src]="item.imageUrl" [alt]="item.title" class="card-img">
+  
+  <div class="card-body">
+    <h3>{{ item.title | uppercase }}</h3>
+    <p class="desc">{{ item.description }}</p>
+    
+    <div class="details">
+      <p><strong>Категорія:</strong> {{ item.category }}</p>
+      <p><strong>Бренд:</strong> {{ item.brand.name }} ({{ item.brand.country }})</p>
+      <p><strong>Розміри:</strong> {{ item.sizes.join(', ') }}</p>
+      
+      <p class="date">Додано: {{ item.addedDate | date:'dd.MM.yyyy' }}</p>
+    </div>
+
+    <div class="price">
+      {{ item.price | currency:'UAH':'symbol-narrow' }}
+    </div>
+  </div>
+</div>
