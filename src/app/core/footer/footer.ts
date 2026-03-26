@@ -9,7 +9,6 @@ import { AppInfo } from '../../shared/models/appInfo';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  // Використовуємо об'єкт Date для отримання поточного року
   public footerConfig: AppInfo = {
     title: 'Модний одяг',
     year: new Date().getFullYear() 
