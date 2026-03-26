@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './core/header/header.component'; 
 import { FooterComponent } from './core/footer/footer.component';
+import { ListComponent } from './features/products/list/list';
 
 @Component({
   selector: 'fashion-root',
