@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../../shared/components/card/card';
 import { PRODUCTS } from '../../../shared/mock-data';
 
 @Component({
   selector: 'fashion-list',
   standalone: true,
+  imports: [CardComponent, FormsModule],
   imports: [CardComponent],
   templateUrl: './list.html',
   styleUrl: './list.css'
