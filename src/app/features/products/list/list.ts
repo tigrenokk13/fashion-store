@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core'; 
 import { FormsModule } from '@angular/forms'; 
 import { CardComponent } from '../../../shared/components/card/card';
-import { PRODUCTS } from '../../../shared/mock-data';
 import { ProductCategory } from '../../../shared/models/product';
+import { ProductService } from '../../../shared/services/product.service'; 
+import { Product } from '../../../shared/models/product';
 
 @Component({
   selector: 'fashion-list',
@@ -11,13 +12,24 @@ import { ProductCategory } from '../../../shared/models/product';
   templateUrl: './list.html',
   styleUrl: './list.css'
 })
-export class ListComponent {
-  private allProducts = PRODUCTS;
-  public filteredProducts = [...this.allProducts]; 
+export class ListComponent implements OnInit {
+  private productService = inject(ProductService);
+
+  public allProducts: Product[] = [];
+  public filteredProducts: Product[] = []; 
   
   public searchQuery: string = '';
   public selectedCategory: string = '';
   public categories = Object.values(ProductCategory);
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.allProducts = this.productService.getAll();
+    this.filteredProducts = [...this.allProducts];
+  }
 
   filterItems(): void {
     const query = this.searchQuery.toLowerCase().trim();
