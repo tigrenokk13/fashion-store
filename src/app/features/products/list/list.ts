@@ -11,9 +11,20 @@ import { PRODUCTS } from '../../../shared/mock-data';
   styleUrl: './list.css'
 })
 export class ListComponent {
-  public productsList = PRODUCTS;
+  private allProducts = PRODUCTS;
+
+  public filteredProducts = [...this.allProducts]; 
   
   public searchQuery: string = '';
+
+  filterItems(): void {
+    const query = this.searchQuery.toLowerCase().trim();
+    
+    // Фільтруємо оригінальний масив і результат записуємо у відображуваний
+    this.filteredProducts = this.allProducts.filter(item => 
+      item.title.toLowerCase().includes(query)
+    );
+  }
 
   handleCardAction(id: number): void {
     console.log(`Користувач натиснув кнопку на товарі з ID: ${id}`);

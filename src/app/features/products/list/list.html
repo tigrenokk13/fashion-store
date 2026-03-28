@@ -2,17 +2,18 @@
   <input 
     type="text" 
     [(ngModel)]="searchQuery" 
+    (ngModelChange)="filterItems()" 
     placeholder="Пошук за назвою..." 
     style="padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px;"
   >
   
   <p style="margin-top: 10px; font-style: italic; color: #555;">
-    Ви ввели: <strong>{{ searchQuery }}</strong>
+    Знайдено товарів: <strong>{{ filteredProducts.length }}</strong>
   </p>
 </div>
 
 <section class="products-grid">
-  @for (item of productsList; track item.id) {
+  @for (item of filteredProducts; track item.id) {
     <fashion-card 
       [item]="item" 
       (addToCart)="handleCardAction($event)">
