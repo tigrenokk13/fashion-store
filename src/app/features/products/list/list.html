@@ -1,0 +1,46 @@
+<div class="filter-wrapper" style="margin: 20px auto; padding: 20px; background: #ffffff; border-radius: 12px; display: flex; gap: 15px; align-items: center; max-width: 900px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); flex-wrap: wrap;">
+  
+  <input 
+    #searchInput
+    type="text" 
+    [(ngModel)]="searchQuery" 
+    (ngModelChange)="filterItems()" 
+    placeholder="Пошук товару..." 
+    style="padding: 12px; flex: 2; font-size: 18px; border: 2px solid #eee; border-radius: 8px; outline: none;"
+  >
+
+  <select 
+    [(ngModel)]="selectedCategory" 
+    (ngModelChange)="filterItems()"
+    style="padding: 12px; flex: 1; font-size: 18px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer;"
+  >
+    <option value="">Всі категорії</option>
+    @for (cat of categories; track cat) {
+      <option [value]="cat">{{ cat }}</option>
+    }
+  </select>
+
+  <button 
+    (click)="resetFilters(searchInput)"
+    style="padding: 12px 25px; font-size: 18px; background-color: #ff4757; color: white; border: none; border-radius: 8px; cursor: pointer;"
+  >
+    Очистити
+  </button>
+</div>
+
+<p style="text-align: center; font-size: 18px; color: #777; margin-bottom: 25px;">
+  Знайдено товарів: <strong>{{ filteredProducts.length }}</strong>
+</p>
+
+<section class="products-grid">
+  @for (item of filteredProducts; track item.id) {
+    <fashion-card 
+      [item]="item" 
+      (addToCart)="handleCardAction($event)">
+    </fashion-card>
+  } @empty {
+    <div style="text-align: center; width: 100%; padding: 50px; font-size: 22px; color: #a4b0be;">
+      За вашим запитом нічого не знайдено 🔍
+    </div>
+  }
+</section>
