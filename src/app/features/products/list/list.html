@@ -1,9 +1,10 @@
 <section class="products-grid">
   
   @for (item of productsList; track item.id) {
-    
-    <fashion-card [item]="item"></fashion-card>
-    
+    <fashion-card 
+      [item]="item" 
+      (addToCart)="handleCardAction($event)">
+    </fashion-card>
   }
 
 </section>

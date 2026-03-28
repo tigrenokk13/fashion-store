@@ -19,5 +19,10 @@ export interface Product {
   addedDate: Date;              // Дата додавання 
   category: ProductCategory;    // Категорія товару
   sizes: string[];              // Розміри
-  brand: BrandInfo;             // Бренд
+  brand?: {        
+    name: string;
+    country: string;
+  };
+  quantity: number;   
+  isDiscount: boolean; 
 }

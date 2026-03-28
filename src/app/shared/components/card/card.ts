@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core'; // Додали імпорти
 import { DatePipe, CurrencyPipe, UpperCasePipe } from '@angular/common';
-import { Product } from '../../models/product';
+import { Product, ProductCategory } from '../../models/product';
 
 @Component({
   selector: 'fashion-card',
@@ -11,4 +11,12 @@ import { Product } from '../../models/product';
 })
 export class CardComponent {
   @Input({ required: true }) item!: Product;
+
+  @Output() addToCart = new EventEmitter<number>();
+
+  protected readonly ProductCategory = ProductCategory;
+
+  onBuyClick(): void {
+    this.addToCart.emit(this.item.id);
+  }
 }
