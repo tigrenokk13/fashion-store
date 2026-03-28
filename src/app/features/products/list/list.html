@@ -1,10 +1,21 @@
-<section class="products-grid">
+<div class="filter-section" style="margin: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+  <input 
+    type="text" 
+    [(ngModel)]="searchQuery" 
+    placeholder="Пошук за назвою..." 
+    style="padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px;"
+  >
   
+  <p style="margin-top: 10px; font-style: italic; color: #555;">
+    Ви ввели: <strong>{{ searchQuery }}</strong>
+  </p>
+</div>
+
+<section class="products-grid">
   @for (item of productsList; track item.id) {
     <fashion-card 
       [item]="item" 
       (addToCart)="handleCardAction($event)">
     </fashion-card>
   }
-
 </section>

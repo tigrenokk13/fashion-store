@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
 import { CardComponent } from '../../../shared/components/card/card';
 import { PRODUCTS } from '../../../shared/mock-data';
 
 @Component({
   selector: 'fashion-list',
   standalone: true,
-  imports: [CardComponent, FormsModule],
-  imports: [CardComponent],
+  imports: [CardComponent, FormsModule], 
   templateUrl: './list.html',
   styleUrl: './list.css'
 })
 export class ListComponent {
   public productsList = PRODUCTS;
+  
+  public searchQuery: string = '';
 
   handleCardAction(id: number): void {
     console.log(`Користувач натиснув кнопку на товарі з ID: ${id}`);
