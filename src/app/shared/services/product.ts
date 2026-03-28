@@ -17,4 +17,9 @@ export class ProductService {
   getById(id: number): Product | undefined {
     return this.items.find(item => item.id === id);
   }
+
+  deleteItem(id: number): void {
+    this.items = this.items.filter(item => item.id !== id);
+    console.log(`Товар з ID ${id} видалено з бази сервісу`);
+  }
 }
