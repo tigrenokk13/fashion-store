@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -34,4 +35,68 @@
   font-weight: bold;
   color: var(--accent-color);
   margin-top: 15px;
+}
+
+.category-indicator {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.bg-blue { background-color: #007bff; }  
+.bg-pink { background-color: #ff69b4; }   
+.bg-orange { background-color: #ffa500; } 
+.bg-grey { background-color: #808080; }  
+
+/* Стилі для плашок категорій */
+.category-wrapper { margin-bottom: 8px; }
+.indicator {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  color: white;
+  font-weight: bold;
+}
+.bg-blue { background-color: #007bff; }
+.bg-pink { background-color: #e91e63; }
+.bg-orange { background-color: #ff9800; }
+.bg-grey { background-color: #6c757d; }
+
+/* Стилі для акції */
+.promo-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+/* Стилі для кнопок */
+.card-actions { margin-top: 15px; }
+.btn-buy {
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-disabled {
+  width: 100%;
+  background-color: #ccc;
+  color: #666;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: not-allowed;
 }

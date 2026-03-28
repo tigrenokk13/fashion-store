@@ -1,20 +1,49 @@
 <div class="card">
+  @if (item.price < 3000) {
+    <div class="promo-badge">Акція %</div>
+  }
+
   <img [src]="item.imageUrl" [alt]="item.title" class="card-img">
-  
+
   <div class="card-body">
+    
+    <div class="category-wrapper">
+      @switch (item.category) {
+        @case ('Чоловічий одяг') {
+          <span class="indicator bg-blue">Man</span>
+        }
+        @case ('Жіночий одяг') {
+          <span class="indicator bg-pink">Woman</span>
+        }
+        @case ('Аксесуари') {
+          <span class="indicator bg-orange">Accs</span>
+        }
+        @default {
+          <span class="indicator bg-grey">Item</span>
+        }
+      }
+    </div>
+
     <h3>{{ item.title | uppercase }}</h3>
     <p class="desc">{{ item.description }}</p>
-    
+
     <div class="details">
-      <p><strong>Категорія:</strong> {{ item.category }}</p>
       <p><strong>Бренд:</strong> {{ item.brand.name }} ({{ item.brand.country }})</p>
       <p><strong>Розміри:</strong> {{ item.sizes.join(', ') }}</p>
-      
       <p class="date">Додано: {{ item.addedDate | date:'dd.MM.yyyy' }}</p>
     </div>
 
     <div class="price">
       {{ item.price | currency:'UAH':'symbol-narrow' }}
     </div>
+
+    <div class="card-actions">
+      @if (item.price > 0) { 
+        <button class="btn-buy">Купити</button>
+      } @else {
+        <button class="btn-disabled" disabled>Немає в наявності</button>
+      }
+    </div>
+
   </div>
 </div>
