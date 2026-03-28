@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { CardComponent } from '../../../shared/components/card/card';
 import { ProductCategory } from '../../../shared/models/product';
-import { ProductService } from '../../../shared/services/product.service'; 
+import { ProductService } from '../../../shared/services/product'; 
 import { Product } from '../../../shared/models/product';
 
 @Component({
@@ -49,6 +49,7 @@ export class ListComponent implements OnInit {
   }
 
   handleCardAction(id: number): void {
-    console.log(`Користувач натиснув кнопку на товарі з ID: ${id}`);
+    this.productService.deleteItem(id);
+    this.loadData();
   }
 }
