@@ -1,8 +1,6 @@
 .products-grid {
   display: grid;
-  /* Використовуємо рекомендований викладачем патерн для адаптивності */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  /* Додаємо відступи між картками */
   gap: 20px;
   padding: 20px;
 }
