@@ -22,4 +22,15 @@ export class ProductService {
     this.items = this.items.filter(item => item.id !== id);
     console.log(`Товар з ID ${id} видалено з бази сервісу`);
   }
+
+
+  filterItems(query: string, category: string): Product[] {
+    const lowQuery = query.toLowerCase().trim();
+    
+    return this.items.filter(item => {
+      const matchesSearch = item.title.toLowerCase().includes(lowQuery);
+      const matchesCategory = category === '' || item.category === category;
+      return matchesSearch && matchesCategory;
+    });
+  }
 }

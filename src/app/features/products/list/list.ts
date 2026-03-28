@@ -15,41 +15,35 @@ import { Product } from '../../../shared/models/product';
 export class ListComponent implements OnInit {
   private productService = inject(ProductService);
 
-  public allProducts: Product[] = [];
   public filteredProducts: Product[] = []; 
-  
   public searchQuery: string = '';
   public selectedCategory: string = '';
   public categories = Object.values(ProductCategory);
 
   ngOnInit(): void {
-    this.loadData();
-  }
-
-  loadData(): void {
-    this.allProducts = this.productService.getAll();
-    this.filteredProducts = [...this.allProducts];
+    this.updateUI();
   }
 
   filterItems(): void {
-    const query = this.searchQuery.toLowerCase().trim();
-    
-    this.filteredProducts = this.allProducts.filter(item => {
-      const matchesSearch = item.title.toLowerCase().includes(query);
-      const matchesCategory = this.selectedCategory === '' || item.category === this.selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
+    this.updateUI();
   }
 
   resetFilters(inputElement: HTMLInputElement): void {
     this.searchQuery = '';
     this.selectedCategory = '';
-    this.filterItems();
+    this.updateUI();
     inputElement.focus();
   }
 
   handleCardAction(id: number): void {
     this.productService.deleteItem(id);
-    this.loadData();
+    this.updateUI();
+  }
+
+  private updateUI(): void {
+    this.filteredProducts = this.productService.filterItems(
+      this.searchQuery, 
+      this.selectedCategory
+    );
   }
 }
