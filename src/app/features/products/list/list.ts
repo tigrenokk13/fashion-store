@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { CardComponent } from '../../../shared/components/card/card';
 import { PRODUCTS } from '../../../shared/mock-data';
-import { ProductCategory } from '../../../shared/models/product'; 
+import { ProductCategory } from '../../../shared/models/product';
 
 @Component({
   selector: 'fashion-list',
@@ -13,12 +13,10 @@ import { ProductCategory } from '../../../shared/models/product';
 })
 export class ListComponent {
   private allProducts = PRODUCTS;
-  
   public filteredProducts = [...this.allProducts]; 
   
   public searchQuery: string = '';
   public selectedCategory: string = '';
-
   public categories = Object.values(ProductCategory);
 
   filterItems(): void {
@@ -26,11 +24,16 @@ export class ListComponent {
     
     this.filteredProducts = this.allProducts.filter(item => {
       const matchesSearch = item.title.toLowerCase().includes(query);
-      
       const matchesCategory = this.selectedCategory === '' || item.category === this.selectedCategory;
-      
       return matchesSearch && matchesCategory;
     });
+  }
+
+  resetFilters(inputElement: HTMLInputElement): void {
+    this.searchQuery = '';
+    this.selectedCategory = '';
+    this.filterItems();
+    inputElement.focus();
   }
 
   handleCardAction(id: number): void {
