@@ -1,16 +1,52 @@
-<div class="filter-section" style="margin: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+<div class="filter-section" style="
+    margin: 20px auto; 
+    padding: 15px; 
+    background: #f9f9f9; 
+    border-radius: 8px; 
+    display: flex; 
+    gap: 15px; 
+    align-items: center; 
+    max-width: 800px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+">
+  
   <input 
     type="text" 
     [(ngModel)]="searchQuery" 
     (ngModelChange)="filterItems()" 
-    placeholder="Пошук за назвою..." 
-    style="padding: 10px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px;"
+    placeholder="Пошук..." 
+    style="
+        padding: 12px; 
+        flex: 2; 
+        font-size: 18px; 
+        border: 1px solid #ccc; 
+        border-radius: 6px;
+    "
   >
-  
-  <p style="margin-top: 10px; font-style: italic; color: #555;">
-    Знайдено товарів: <strong>{{ filteredProducts.length }}</strong>
-  </p>
+
+  <select 
+    [(ngModel)]="selectedCategory" 
+    (ngModelChange)="filterItems()"
+    style="
+        padding: 12px; 
+        flex: 1; 
+        font-size: 18px; 
+        border: 1px solid #ccc; 
+        border-radius: 6px; 
+        background: white; 
+        cursor: pointer;
+    "
+  >
+    <option value="">Всі категорії</option>
+    @for (cat of categories; track cat) {
+      <option [value]="cat">{{ cat }}</option>
+    }
+  </select>
 </div>
+
+<p style="text-align: center; font-size: 16px; color: #666; margin-bottom: 20px;">
+  Знайдено: <strong>{{ filteredProducts.length }}</strong> товарів
+</p>
 
 <section class="products-grid">
   @for (item of filteredProducts; track item.id) {
@@ -18,5 +54,9 @@
       [item]="item" 
       (addToCart)="handleCardAction($event)">
     </fashion-card>
+  } @empty {
+    <div style="text-align: center; width: 100%; padding: 40px; font-size: 20px; color: #999;">
+      Нічого не знайдено 🔍
+    </div>
   }
 </section>
