@@ -3,7 +3,7 @@ import { DatePipe, CurrencyPipe, UpperCasePipe, CommonModule } from '@angular/co
 import { RouterModule } from '@angular/router';
 import { Product, ProductCategory } from '../../models/product';
 import { TruncatePipe } from '../../pipes/truncate-pipe';
-
+import { CategoryColorPipe } from '../../pipes/category-color-pipe'; 
 
 @Component({
   selector: 'fashion-card',
@@ -14,7 +14,8 @@ import { TruncatePipe } from '../../pipes/truncate-pipe';
     UpperCasePipe, 
     CommonModule, 
     RouterModule, 
-    TruncatePipe 
+    TruncatePipe,
+    CategoryColorPipe
   ],
   templateUrl: './card.html',
   styleUrl: './card.css'

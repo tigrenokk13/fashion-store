@@ -8,13 +8,9 @@
   <div class="card-body">
     
     <div class="category-wrapper">
-      @switch (item.category) {
-        @case (ProductCategory.MEN) { <span class="indicator bg-blue">Man</span> }
-        @case (ProductCategory.WOMEN) { <span class="indicator bg-pink">Woman</span> }
-        @case (ProductCategory.KIDS) { <span class="indicator bg-blue">Kids</span> }
-        @case (ProductCategory.ACCESSORIES) { <span class="indicator bg-orange">Accs</span> }
-        @default { <span class="indicator bg-grey">Item</span> }
-      }
+      <span class="indicator" [style.backgroundColor]="item.category | categoryColor">
+        {{ item.category }}
+      </span>
     </div>
 
     <h3>{{ item.title | uppercase }}</h3>
