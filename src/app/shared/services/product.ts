@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PRODUCTS } from '../mock-data'; 
 import { Product } from '../models/product';
-import { Observable, BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { Observable, BehaviorSubject, debounceTime, distinctUntilChanged, map, of, delay } from 'rxjs';
 
 export interface FilterOptions {
   query: string;
@@ -39,8 +39,9 @@ export class ProductService {
     return this.items$;
   }
 
-  getById(id: number): Product | undefined {
-    return this.allItems.find(item => item.id === id);
+  getById(id: number | string): Observable<Product | undefined> {
+    const product = this.allItems.find(item => item.id === Number(id));
+    return of(product).pipe(delay(1000));
   }
 
   filterItems(options: FilterOptions): void {
