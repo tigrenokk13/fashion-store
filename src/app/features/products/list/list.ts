@@ -21,7 +21,14 @@ export class ListComponent implements OnInit {
   public categories = Object.values(ProductCategory);
 
   ngOnInit(): void {
-    this.updateUI();
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.productService.getAll().subscribe((data) => {
+      this.filteredProducts = data;
+      console.log('Дані завантажено з затримкою!');
+    });
   }
 
   filterItems(): void {
