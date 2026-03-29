@@ -9,8 +9,8 @@ import { Product } from '../../shared/models/product';
   selector: 'app-product-details',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.css'
+  templateUrl: './product-details.html',
+  styleUrl: './product-details.css'
 })
 export class ProductDetailsComponent implements OnInit {
   private productService = inject(ProductService);
