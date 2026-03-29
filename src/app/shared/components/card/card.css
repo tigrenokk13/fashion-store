@@ -3,10 +3,13 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  background-color: white; /* Змінив на white для кращої видимості */
+  background-color: white;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   color: #333;
-  transition: all 0.3s ease; /* Для плавності ефектів */
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card-img {
@@ -18,6 +21,9 @@
 
 .card-body {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .details p {
@@ -35,11 +41,11 @@
   font-size: 20px;
   font-weight: bold;
   color: #e91e63;
-  margin-top: 15px;
+  margin: 10px 0;
 }
 
-/* Категорії */
 .category-wrapper { margin-bottom: 8px; }
+
 .indicator {
   padding: 3px 10px;
   border-radius: 12px;
@@ -47,12 +53,12 @@
   color: white;
   font-weight: bold;
 }
+
 .bg-blue { background-color: #007bff; }
 .bg-pink { background-color: #e91e63; }
 .bg-orange { background-color: #ff9800; }
 .bg-grey { background-color: #6c757d; }
 
-/* Акція */
 .promo-badge {
   position: absolute;
   top: 10px;
@@ -65,28 +71,50 @@
   border-radius: 4px;
 }
 
-/* Кнопки */
-.card-actions { margin-top: 15px; }
-.btn-buy {
-  width: 100%;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px;
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+  padding-top: 15px;
+}
+
+.btn-buy, .btn-details, .btn-disabled {
+  flex: 1;
+  padding: 10px 5px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  transition: background 0.2s;
 }
+
+.btn-buy {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-buy:hover {
+  background-color: #218838;
+}
+
+.btn-details {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn-details:hover {
+  background-color: #e2e6ea;
+}
+
 .btn-disabled {
-  width: 100%;
   background-color: #ccc;
   color: #666;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
   cursor: not-allowed;
 }
 
-/* Етап 5: Динамічний стиль для дорогих товарів */
 .expensive {
   border: 2px solid #ffd700;
   box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
