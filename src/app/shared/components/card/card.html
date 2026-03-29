@@ -1,5 +1,6 @@
-<div class="card" [class.expensive]="item.price > 3000">
-  @if (item.isDiscount) {
+<div class="card" 
+     [class.expensive]="item.price > 3000"
+     [appHighlight]="'rgba(233, 30, 99, 0.2)'"> @if (item.isDiscount) {
     <div class="promo-badge">Акція %</div>
   }
 
