@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PRODUCTS } from '../mock-data'; 
 import { Product } from '../models/product';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of, delay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root' 
@@ -15,7 +15,7 @@ export class ProductService {
   constructor() {}
 
   getAll(): Observable<Product[]> {
-    return this.items$;
+    return this.items$.pipe(delay(1000));
   }
 
   getById(id: number): Product | undefined {
@@ -25,7 +25,6 @@ export class ProductService {
   deleteItem(id: number): void {
     this.items = this.items.filter(item => item.id !== id);
     this.itemsSubject$.next([...this.items]);
-    console.log(`Товар з ID ${id} видалено. Стан оновлено.`);
   }
 
   filterItems(query: string, category: string): Product[] {

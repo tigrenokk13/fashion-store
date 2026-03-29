@@ -4,51 +4,38 @@ import { CardComponent } from '../../../shared/components/card/card';
 import { ProductCategory } from '../../../shared/models/product';
 import { ProductService } from '../../../shared/services/product'; 
 import { Product } from '../../../shared/models/product';
+import { Observable } from 'rxjs';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'fashion-list',
   standalone: true,
-  imports: [CardComponent, FormsModule], 
+  imports: [CardComponent, FormsModule, AsyncPipe, CommonModule], 
   templateUrl: './list.html',
   styleUrl: './list.css'
 })
 export class ListComponent implements OnInit {
   private productService = inject(ProductService);
 
-  public filteredProducts: Product[] = []; 
+  public products$!: Observable<Product[]>; 
   public searchQuery: string = '';
   public selectedCategory: string = '';
   public categories = Object.values(ProductCategory);
 
   ngOnInit(): void {
-    this.loadData();
-  }
-
-  loadData(): void {
-    this.productService.getAll().subscribe((data) => {
-      this.filteredProducts = data;
-    });
+    this.products$ = this.productService.getAll();
   }
 
   filterItems(): void {
-    this.updateUI();
   }
 
   resetFilters(inputElement: HTMLInputElement): void {
     this.searchQuery = '';
     this.selectedCategory = '';
-    this.updateUI();
     inputElement.focus();
   }
 
   handleCardAction(id: number): void {
     this.productService.deleteItem(id);
-  }
-
-  private updateUI(): void {
-    this.filteredProducts = this.productService.filterItems(
-      this.searchQuery, 
-      this.selectedCategory
-    );
   }
 }
