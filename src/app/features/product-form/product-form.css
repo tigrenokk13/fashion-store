@@ -40,3 +40,21 @@ input:focus, textarea:focus, select:focus { border-color: #2ed573; }
 }
 
 .submit-btn:hover { background-color: #26af5f; }
+
+.error-msg {
+  color: #ff4757;
+  font-size: 13px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched {
+  border-color: #ff4757;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
