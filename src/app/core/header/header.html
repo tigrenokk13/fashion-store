@@ -1,3 +1,13 @@
 <header>
   <h1>{{ headerConfig.title }}</h1>
+  <nav>
+    <a routerLink="/products">Каталог</a>
+
+    @if (isLoggedIn$ | async) {
+      <a routerLink="/product/new">Додати товар</a>
+      <button (click)="logout()" class="btn-auth btn-logout">Вийти</button>
+    } @else {
+      <a routerLink="/login" class="btn-auth">Увійти</a>
+    }
+  </nav>
 </header>
