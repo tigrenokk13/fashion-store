@@ -1,3 +1,4 @@
+/*
 import { Component } from '@angular/core';
 import { AppInfo } from '../../shared/models/appInfo';
 
@@ -14,3 +15,4 @@ export class FooterComponent {
     year: new Date().getFullYear() 
   };
 }
+*/

@@ -1,3 +1,4 @@
+/*
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../services/auth';
 import { CommonModule } from '@angular/common';
@@ -25,3 +26,4 @@ export class HeaderComponent {
     this.authService.logout();
   }
 }
+*/
