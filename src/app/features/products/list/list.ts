@@ -6,16 +6,18 @@ import { ProductService, FilterOptions } from '../../../shared/services/product'
 import { Product } from '../../../shared/models/product';
 import { Observable } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router'; 
 
 @Component({
   selector: 'fashion-list',
   standalone: true,
-  imports: [CardComponent, FormsModule, AsyncPipe, CommonModule], 
+  imports: [CardComponent, FormsModule, AsyncPipe, CommonModule, RouterModule], 
   templateUrl: './list.html',
   styleUrl: './list.css'
 })
 export class ListComponent implements OnInit {
   private productService = inject(ProductService);
+  private router = inject(Router); // Інжектуємо роутер
 
   public products$!: Observable<Product[]>; 
   public searchQuery: string = '';
@@ -24,6 +26,11 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.products$ = this.productService.getAll();
+  }
+
+  // ФУНКЦІЯ ДЛЯ ПЕРЕХОДУ
+  goToCreateForm(): void {
+    this.router.navigate(['/product/new']);
   }
 
   filterItems(): void {
