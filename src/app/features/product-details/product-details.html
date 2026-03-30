@@ -1,0 +1,71 @@
+<div style="max-width: 1000px; margin: 40px auto; padding: 20px; font-family: sans-serif;">
+  <button routerLink="/products" style="padding: 10px 20px; cursor: pointer; background: #eee; border: none; border-radius: 5px; margin-bottom: 20px;">
+    ← Назад
+  </button>
+
+  <ng-container *ngIf="product$ | async as product; else loading">
+    <div *ngIf="product; else notFound" style="display: flex; gap: 40px; align-items: start;">
+      
+      <div style="flex: 1;">
+        <img [src]="product.imageUrl" [alt]="product.title" style="width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+      </div>
+
+      <div style="flex: 1;">
+        <span style="padding: 5px 12px; background: #2f3542; color: white; border-radius: 20px; font-size: 14px;">
+          {{ product.category }}
+        </span>
+        
+        <h1 style="margin: 15px 0;">{{ product.title }}</h1>
+        <h2 style="color: #ff4757;">{{ product.price | currency:'UAH':'symbol' }}</h2>
+        
+        <p style="color: #747d8c;">Дата додавання: {{ product.addedDate | date:'dd.MM.yyyy' }}</p>
+
+        <p style="font-size: 18px; line-height: 1.6;">{{ product.description }}</p>
+
+        <div *ngIf="product.brand" style="margin: 20px 0; padding: 15px; background: #f1f2f6; border-radius: 10px;">
+          <h4>Про бренд:</h4>
+          <p>Назва: <strong>{{ product.brand.name }}</strong></p>
+          <p>Країна: <strong>{{ product.brand.country }}</strong></p>
+        </div>
+
+        <div>
+          <h4>Доступні розміри:</h4>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            @for (size of product.sizes; track size) {
+              <span style="padding: 5px 15px; background: white; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                {{ size }}
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #notFound>
+      <div style="text-align: center; padding: 50px;">
+        <h3>Товар не знайдено</h3>
+        <button routerLink="/products" class="btn">До списку</button>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #loading>
+    <div style="text-align: center; padding: 50px;">
+      <div class="spinner"></div>
+      <p>Завантаження інформації про товар...</p>
+    </div>
+  </ng-template>
+</div>
+
+<style>
+  .spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2f3542;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
