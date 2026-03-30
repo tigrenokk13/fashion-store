@@ -1,0 +1,47 @@
+<div class="card" 
+     [class.expensive]="item.price > 3000"
+     [appHighlight]="'rgba(233, 30, 99, 0.2)'"> @if (item.isDiscount) {
+    <div class="promo-badge">Акція %</div>
+  }
+
+  <img [src]="item.imageUrl" [alt]="item.title" class="card-img">
+
+  <div class="card-body">
+    
+    <div class="category-wrapper">
+      <span class="indicator" [style.backgroundColor]="item.category | categoryColor">
+        {{ item.category }}
+      </span>
+    </div>
+
+    <h3>{{ item.title | uppercase }}</h3>
+    
+    <p class="desc">{{ item.description | truncate:50 }}</p>
+
+    <div class="details">
+      <p><strong>Бренд:</strong> {{ item.brand?.name }} ({{ item.brand?.country }})</p>
+      <p><strong>Розміри:</strong> {{ item.sizes.join(', ') }}</p>
+      <p class="date">Додано: {{ item.addedDate | date:'dd.MM.yyyy' }}</p>
+    </div>
+
+    <div class="price">
+      {{ item.price | currency:'UAH':'symbol-narrow' }}
+    </div>
+
+    <div class="card-actions" style="display: flex; gap: 10px; margin-top: 15px;">
+      <button 
+        class="btn-details" 
+        [routerLink]="['/product', item.id]"
+        style="flex: 1; padding: 10px; cursor: pointer; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; font-weight: bold;">
+        Детальніше
+      </button>
+
+      @if (item.quantity > 0) {
+        <button class="btn-buy" (click)="onBuyClick()" style="flex: 1;">Купити</button>
+      } @else {
+        <button class="btn-disabled" disabled style="flex: 1;">Немає</button>
+      }
+    </div>
+
+  </div>
+</div>
