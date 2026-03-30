@@ -2,8 +2,9 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProductService } from '../../shared/services/product.service';
+import { ProductService } from '../../shared/services/product'; 
 import { ProductCategory } from '../../shared/models/product';
+import { forbiddenNameValidator } from '../../shared/validators/custom.validators';
 
 @Component({
   selector: 'app-product-form',
@@ -20,7 +21,11 @@ export class ProductFormComponent {
   categories = Object.values(ProductCategory);
 
   public form = this.fb.group({
-    title: ['', [Validators.required, Validators.minLength(3)]],
+    title: ['', [
+      Validators.required, 
+      Validators.minLength(3), 
+      forbiddenNameValidator(/test/i)
+    ]],
     description: ['', [Validators.required, Validators.minLength(10)]],
     price: [0, [Validators.required, Validators.min(0.01)]],
     category: [ProductCategory.MEN, [Validators.required]],

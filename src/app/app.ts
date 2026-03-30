@@ -7,7 +7,7 @@ import { ListComponent } from './features/products/list/list';
 @Component({
   selector: 'fashion-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, ListComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
