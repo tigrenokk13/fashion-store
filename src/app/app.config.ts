@@ -4,7 +4,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
-import { apiInterceptor } from './core/interceptors/api-interceptor'; 
+import { apiInterceptor } from './core/interceptors/api-interceptor';
+import { authInterceptor } from './core/interceptors/auth-interceptor'; 
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +16,7 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
     }),
     provideHttpClient(
-      withInterceptors([apiInterceptor])
+      withInterceptors([apiInterceptor, authInterceptor])
     )
   ]
 };
