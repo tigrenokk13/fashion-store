@@ -13,10 +13,8 @@ export interface FilterOptions {
 })
 export class ProductService {
   private allItems: Product[] = [...PRODUCTS];
-
   private itemsSubject$ = new BehaviorSubject<Product[]>(this.allItems);
   public items$ = this.itemsSubject$.asObservable();
-
   private filterSubject$ = new BehaviorSubject<FilterOptions>({ query: '', category: '' });
 
   constructor() {
@@ -50,6 +48,11 @@ export class ProductService {
 
   deleteItem(id: number): void {
     this.allItems = this.allItems.filter(item => item.id !== id);
+    this.filterItems(this.filterSubject$.value);
+  }
+
+  addItem(newItem: Product): void {
+    this.allItems = [...this.allItems, newItem];
     this.filterItems(this.filterSubject$.value);
   }
 }
