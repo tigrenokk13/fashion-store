@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { PRODUCTS } from '../mock-data'; 
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from '../models/product';
-import { Observable, BehaviorSubject, debounceTime, distinctUntilChanged, map, of, delay } from 'rxjs';
+import { Observable, BehaviorSubject, debounceTime, distinctUntilChanged, switchMap, map, tap, catchError, of } from 'rxjs';
 
 export interface FilterOptions {
   query: string;
@@ -12,25 +13,43 @@ export interface FilterOptions {
   providedIn: 'root' 
 })
 export class ProductService {
-  private allItems: Product[] = [...PRODUCTS];
-  private itemsSubject$ = new BehaviorSubject<Product[]>(this.allItems);
+  private http = inject(HttpClient);
+  private toastr = inject(ToastrService);
+
+  private itemsSubject$ = new BehaviorSubject<Product[]>([]);
   public items$ = this.itemsSubject$.asObservable();
+  
   private filterSubject$ = new BehaviorSubject<FilterOptions>({ query: '', category: '' });
 
   constructor() {
+    this.loadInitialData();
+
     this.filterSubject$.pipe(
       debounceTime(500),
       distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
-      map(options => {
-        return this.allItems.filter(item => {
+      switchMap(options => this.http.get<Product[]>('items').pipe(
+        map(products => products.filter(item => {
           const matchesQuery = item.title.toLowerCase().includes(options.query.toLowerCase());
           const matchesCategory = options.category === '' || item.category === options.category;
           return matchesQuery && matchesCategory;
-        });
-      })
+        })),
+        catchError(() => {
+          this.toastr.error('Помилка фільтрації', 'Сервер');
+          return of([]);
+        })
+      ))
     ).subscribe(filteredResult => {
       this.itemsSubject$.next(filteredResult);
     });
+  }
+
+  private loadInitialData(): void {
+    this.http.get<Product[]>('items').pipe(
+      catchError(() => {
+        this.toastr.error('Не вдалося з’єднатися з сервером', 'Помилка мережі');
+        return of([]);
+      })
+    ).subscribe(data => this.itemsSubject$.next(data));
   }
 
   getAll(): Observable<Product[]> {
@@ -38,21 +57,41 @@ export class ProductService {
   }
 
   getById(id: number | string): Observable<Product | undefined> {
-    const product = this.allItems.find(item => item.id === Number(id));
-    return of(product).pipe(delay(1000));
+    return this.http.get<Product>(`items/${id}`).pipe(
+      catchError(() => {
+        this.toastr.error('Товар не знайдено', 'Помилка');
+        return of(undefined);
+      })
+    );
   }
 
   filterItems(options: FilterOptions): void {
     this.filterSubject$.next(options);
   }
 
-  deleteItem(id: number): void {
-    this.allItems = this.allItems.filter(item => item.id !== id);
-    this.filterItems(this.filterSubject$.value);
+  addItem(newItem: Product): void {
+    this.http.post<Product>('items', newItem).pipe(
+      tap(() => {
+        this.toastr.success('Елемент успішно додано!', 'Успіх');
+        this.loadInitialData();
+      }),
+      catchError(() => {
+        this.toastr.error('Помилка при додаванні', 'Сервер');
+        return of(null);
+      })
+    ).subscribe();
   }
 
-  addItem(newItem: Product): void {
-    this.allItems = [...this.allItems, newItem];
-    this.filterItems(this.filterSubject$.value);
+  deleteItem(id: number): void {
+    this.http.delete(`items/${id}`).pipe(
+      tap(() => {
+        this.toastr.info('Елемент видалено', 'Інфо');
+        this.loadInitialData();
+      }),
+      catchError(() => {
+        this.toastr.error('Помилка при видаленні', 'Сервер');
+        return of(null);
+      })
+    ).subscribe();
   }
 }

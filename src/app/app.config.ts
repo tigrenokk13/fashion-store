@@ -14,7 +14,6 @@ export const appConfig: ApplicationConfig = {
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
     }),
-    // Підключаємо HTTP клієнт та наш інтерцептор
     provideHttpClient(
       withInterceptors([apiInterceptor])
     )
